@@ -18,7 +18,9 @@ spec:
         image: razashahid107/pktviz:0.2
         imagePullPolicy: Always
         securityContext:
-          privileged: true   # simplest for now; refine later
+          privileged: false               # keep least-priv going forward
+          capabilities:
+            add: ["BPF", "NET_ADMIN", "SYS_RESOURCE"]
         volumeMounts:
           - name: bpffs
             mountPath: /sys/fs/bpf
