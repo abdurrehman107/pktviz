@@ -30,6 +30,7 @@ func main() {
 	lnk, err := link.AttachXDP(link.XDPOptions{
 		Program:   objs.XdpCount,
 		Interface: ifaceIndex("eth0"),
+		Flags:     link.XDPGenericMode,
 	})
 	if err != nil {
 		log.Fatalf("attach: %v", err)

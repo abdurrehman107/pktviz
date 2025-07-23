@@ -7,4 +7,4 @@ import "C"
        xdp_bpfel.go  xdp_bpfel.o  (little-endian object + bindings)
 */
 
-//go:generate bpf2go -no-strip -cc clang -cflags "-O2 -g -I/usr/include/x86_64-linux-gnu" -target native -go-package xdp xdp xdp_kern.c -- -I/usr/include/x86_64-linux-gnu
+//go:generate bpf2go -no-strip -cc clang -cflags "-O2 -g -I/usr/include/x86_64-linux-gnu" -target bpfel,bpfeb -go-package xdp xdp xdp_kern.c -- -I/usr/include/x86_64-linux-gnu

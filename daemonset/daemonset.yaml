@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: pktviz
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels: { app: pktviz }
+  template:
+    metadata:
+      labels: { app: pktviz }
+    spec:
+      hostNetwork: true      # pktvizd attaches to host iface
+      securityContext:
+        runAsUser: 0         # needs root for BPF syscalls
+      containers:
+      - name: pktviz
+        image: razashahid107/pktviz:0.2
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true   # simplest for now; refine later
+        volumeMounts:
+          - name: bpffs
+            mountPath: /sys/fs/bpf
+      volumes:
+        - name: bpffs
+          hostPath: { path: /sys/fs/bpf, type: Directory }
