@@ -38,3 +38,19 @@ Run the output file:
 ```bash
 ./main
 ```
+
+Sample output:
+```bash
+root@test-vm:~/pktviz# ./main 
+2025/07/23 17:55:31 XDP program attached (generic) on eth0
+2025/07/23 17:55:31 packets seen: 0
+2025/07/23 17:55:33 packets seen: 3
+2025/07/23 17:55:35 packets seen: 10
+2025/07/23 17:55:37 packets seen: 16
+2025/07/23 17:55:39 packets seen: 45
+2025/07/23 17:55:41 packets seen: 51
+2025/07/23 17:55:43 packets seen: 69
+2025/07/23 17:55:45 packets seen: 74
+2025/07/23 17:55:47 packets seen: 80
+2025/07/23 17:55:49 packets seen: 85
+```
