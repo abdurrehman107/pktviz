@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"runtime"
 	"time"
 
 	"github.com/cilium/ebpf/link"
@@ -35,7 +36,7 @@ func main() {
 	lnk, err := link.AttachXDP(link.XDPOptions{
 		Program:   objs.XdpCount,
 		Interface: ifaceIndex("eth0"),
-		Flags:     link.XDPGenericMode,   // virtio-net → generic
+		Flags:     link.XDPGenericMode, // virtio-net → generic
 	})
 	if err != nil {
 		log.Fatalf("attach: %v", err)
@@ -45,10 +46,18 @@ func main() {
 
 	// -------- poll counter --------
 	key := uint32(0)
+	nCPU := runtime.NumCPU()
+	pcpuVals := make([]uint64, nCPU) // slice for Lookup
+
 	for {
-		var v uint64
-		if err := objs.PktCnt.Lookup(&key, &v); err == nil {
-			log.Printf("packets seen: %d\n", v)
+		if err := objs.PktCnt.Lookup(&key, &pcpuVals); err != nil {
+			log.Printf("lookup error: %v", err)
+		} else {
+			var total uint64
+			for _, v := range pcpuVals {
+				total += v
+			}
+			log.Printf("packets seen: %d", total)
 		}
 		time.Sleep(2 * time.Second)
 	}
