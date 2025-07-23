@@ -7,7 +7,7 @@ import (
 	"github.com/cilium/ebpf/link"
 	"github.com/vishvananda/netlink"
 
-	"github.com/abdurrehman/pktviz/kernel"
+	xdp "github.com/abdurrehman/pktviz/kernel"
 )
 
 func ifaceIndex(name string) int {

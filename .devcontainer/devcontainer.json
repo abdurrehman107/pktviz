@@ -1,0 +1,49 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/go
+{
+	"name": "Go",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/go:1-1.24-bookworm",
+	"features": {
+		"ghcr.io/thediveo/devcontainer-features/go-ebpf:0": {}
+	},
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "go version",
+
+	// Configure tool-specific properties.
+	// "customizations": {},
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	"remoteUser": "root"
+}
+
+
+// {
+//   "name": "pktviz – Go + eBPF",
+//   "dockerFile": "Dockerfile",          // build the image above
+//   "platform": "linux/amd64",           // QEMU on Apple Silicon
+//   "remoteUser": "root",                // fixes Go module-cache perms
+
+//   "workspaceFolder": "/workspace",
+//   "mounts": [
+//     "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached"
+//   ],
+
+//   "postCreateCommand": "go mod tidy",
+
+//   "tasks": [
+//     { "label": "go generate (kernel)", "type": "shell", "command": "go generate ./kernel" },
+//     { "label": "build loader",         "type": "shell", "command": "go build ./cmd/pktvizd" }
+//   ],
+
+//   "settings": {
+//     "terminal.integrated.defaultProfile.linux": "bash"
+//   }
+// }
