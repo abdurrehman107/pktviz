@@ -5,7 +5,7 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/cilium/ebpf/link"
+	// "github.com/cilium/ebpf/link"
 	"github.com/cilium/ebpf/rlimit"
 	"github.com/vishvananda/netlink"
 
@@ -33,18 +33,17 @@ func main() {
 	}
 	defer objs.Close()
 
-	lnk, err := link.AttachXDP(link.XDPOptions{
-		Program:   objs.XdpCount,
-		Interface: ifaceIndex("eth0"),
-		Flags:     link.XDPGenericMode, // virtio-net → generic
-	})
-	if err != nil {
-		log.Fatalf("attach: %v", err)
-	}
-	defer lnk.Close()
+	// lnk, err := link.AttachXDP(link.XDPOptions{
+	// 	Program:   objs.XdpCount,
+	// 	Interface: ifaceIndex("eth0"),
+	// 	Flags:     link.XDPGenericMode, // virtio-net → generic
+	// })
+	// if err != nil {
+	// 	log.Fatalf("attach: %v", err)
+	// }
+	// defer lnk.Close()
 	log.Println("XDP program attached (generic) on eth0")
 
-	// -------- poll counter --------
 	key := uint32(0)
 	nCPU := runtime.NumCPU()
 	pcpuVals := make([]uint64, nCPU) // slice for Lookup
